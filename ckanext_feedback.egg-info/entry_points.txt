@@ -1,4 +1,7 @@
 
         [ckan.plugins]
         feedback=ckanext.feedback.plugin:FeedbackPlugin
+
+        [babel.extractors]
+        ckan = ckan.lib.extract:extract_ckan
     

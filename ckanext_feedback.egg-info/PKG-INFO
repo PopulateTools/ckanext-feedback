@@ -1,12 +1,15 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: ckanext-feedback
-Version: 0.1
-Summary: Feedback Module for Data and Feature Requests
-Home-page: www.maulik-kamdar.com
-Author: Maulik R Kamdar
-Author-email: kamdarmax@gmail.com
-License: Creative Commons
+Version: 0.0.1
+Summary: A contact form extension for CKAN
+Home-page: https://github.com/populatetools/ckanext-feedback
+Author: Populate Tools
+Author-email: alberto@populate.tools
+License: AGPL
 Description-Content-Type: UNKNOWN
-Description: 
-            
+Description: UNKNOWN
+Keywords: CKAN contact form
 Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Programming Language :: Python :: 2.7

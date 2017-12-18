@@ -1,18 +1,44 @@
-{% extends "page.html" %}
+{% extends 'page.html' %}
 
-{% block subtitle %}{{ _('Request') }}{% endblock %}
+{% block subtitle %}
+  {{ _('Nueva solicitud') }}
+{% endblock %}
 
 {% block breadcrumb_content %}
-  <li class="active">{% link_for _('Request'), controller='ckanext.feedback.controller:FeedbackController', action='feedback' %}</li>
+  <li class='active'>{% link_for _('Nueva solicitud'), controller='ckanext.feedback.controller:FeedbackController', action='feedback' %}</li>
 {% endblock %}
 
-{% block page_heading %}{{ _('Request Data') }}{% endblock %}
-
-{% block primary_content_inner %}
-   <h1 align="center">{{ _('Your Request was submitted.') }}</h1>
+{% block page_heading %}
+  {{ _('Solicitud de datos') }}
 {% endblock %}
 
-{% block secondary_content %}
-  {#% snippet "snippets/helper.html" %#}
+{% block primary %}
+
+  <style>
+    .feedback-container {
+      display: flex;
+      height: 240px;
+      align-items: center;
+    }
+    .feedback-inner {
+      display: block;
+      width: 100%;
+    }
+    .feedback-item {
+      display: block;
+      text-align: center;
+    }
+  </style>
+
+  <div class='feedback-container'>
+    <div class='feedback-inner'>
+      <h1 class='feedback-item'>{{ _('Tu solicitud ha sido enviada') }}</h1>
+      <h3 style='margin-top: 50px'><a href="{{ h.url_for('home') }}" class='feedback-item'>{{ _('Volver') }}</a></h3>
+    </div>
+  </div>
+
 {% endblock %}
 
+<!-- Remove left sidebar -->
+{% block secondary %}
+{% endblock %}
