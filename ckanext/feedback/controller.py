@@ -38,9 +38,7 @@ class FeedbackController(BaseController):
         msg['Date']    = formatdate(localtime=True)
         msg['Subject'] = 'Nueva petición de datos recibida'
 
-        # TODO: solve encoding problems
-        # email_body = 'Nombre de usuario: ' + request_sender_name.encode('utf-8') + "\nPetición: ".decode('utf-8') + request.params['data_request_description']
-        email_body = 'Email body placeholder'
+        email_body = ('Nombre de usuario: ' + request_sender_name.encode('utf-8') + "\nPetición: ".decode('utf-8') + request.params['data_request_description']).encode('utf-8')
 
         msg.attach(MIMEText(email_body))
 
