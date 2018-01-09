@@ -2,6 +2,8 @@
 
 import smtplib
 import os
+import logging
+import socket
 
 import ckan.plugins as p
 import ckan.plugins.toolkit as t
@@ -27,10 +29,15 @@ class FeedbackController(BaseController):
         current_user = t.get_action('user_show')({}, { 'id': c.user })
         request_sender_name = current_user['display_name']
 
-        # build message
+        try:
+            receiver_user = t.get_action('user_show')({},{ 'id': 'ecoembes' })
+            receiver_email = receiver_user['email']
+        except t.ObjectNotFound:
+            receiver_email = config.get('ckan.feedback.receiver_email')
 
-        receiver_email = config.get('ckan.feedback.receiver_email')
         sender_email   = config.get('ckan.feedback.sender_email')
+
+        # build message
 
         msg = MIMEMultipart()
         msg['From']    = sender_email
@@ -43,9 +50,14 @@ class FeedbackController(BaseController):
         msg.attach(MIMEText(email_body))
 
         # send email
-
-        smtp_server = smtplib.SMTP('localhost', 25)
-        smtp_server.sendmail(sender_email, receiver_email, msg.as_string() )
-        smtp_server.close()
+        try:
+            smtp_address = 'localhost'
+            smtp_port = 25
+            smtp_server = smtplib.SMTP(smtp_address, smtp_port)
+            smtp_server.sendmail(sender_email, receiver_email, msg.as_string() )
+            smtp_server.close()
+        except socket.error:
+            logging.error('Error establishing SMTP connection to server: ' + smtp_address + ' port ' + str(smtp_port))
+            raise
 
         return p.toolkit.render('feedbackProv.html')
