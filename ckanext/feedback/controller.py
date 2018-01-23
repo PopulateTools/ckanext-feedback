@@ -35,7 +35,7 @@ class FeedbackController(BaseController):
         except t.ObjectNotFound:
             receiver_email = config.get('ckan.feedback.receiver_email')
 
-        sender_email   = config.get('ckan.feedback.sender_email')
+        sender_email   = config.get('ckan.feedback.sender_email', 'notifications@ckan.dev')
 
         # build message
 
@@ -51,8 +51,8 @@ class FeedbackController(BaseController):
 
         # send email
         try:
-            smtp_address = 'localhost'
-            smtp_port = 25
+            smtp_address = config.get('ckan.feedback.smtp_address')
+            smtp_port = t.asint(config.get('ckan.feedback.smtp_port', 25))
             smtp_server = smtplib.SMTP(smtp_address, smtp_port)
             smtp_server.sendmail(sender_email, receiver_email, msg.as_string() )
             smtp_server.close()
