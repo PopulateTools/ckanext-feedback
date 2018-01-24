@@ -47,7 +47,7 @@ class FeedbackController(BaseController):
         msg['Date']    = formatdate(localtime=True)
         msg['Subject'] = unicode('Nueva petición de datos recibida', 'utf-8').encode('utf-8')
 
-        loggin.info(msg)
+        logging.info(msg)
 
         email_body = u'Nombre de usuario: ' + request_sender_name + unicode("\nPetición: ", 'utf-8') + request.params['data_request_description']
 
