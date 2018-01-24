@@ -54,7 +54,7 @@ class FeedbackController(BaseController):
         logging.info('email_body:')
         logging.info(email_body)
 
-        msg.attach(MIMEText(email_body.encode('utf-8')))
+        msg.attach(MIMEText(email_body.encode('utf-8'), _charset='utf-8'))
 
         logging.info('final message:')
         logging.info(msg)
