@@ -43,11 +43,11 @@ class FeedbackController(BaseController):
         msg['From']    = sender_email
         msg['To']      = receiver_email
         msg['Date']    = formatdate(localtime=True)
-        msg['Subject'] = 'Nueva petición de datos recibida'
+        msg['Subject'] = unicode('Nueva petición de datos recibida', 'utf-8').encode('utf-8')
 
-        email_body = ('Nombre de usuario: ' + request_sender_name.encode('utf-8') + "\nPetición: ".decode('utf-8') + request.params['data_request_description']).encode('utf-8')
+        email_body = u'Nombre de usuario: ' + request_sender_name + unicode("\nPetición: ", 'utf-8') + request.params['data_request_description']
 
-        msg.attach(MIMEText(email_body))
+        msg.attach(MIMEText(email_body.encode('utf-8')))
 
         # send email
         try:
