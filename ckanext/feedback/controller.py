@@ -39,15 +39,25 @@ class FeedbackController(BaseController):
 
         # build message
 
+        logging.info('[DEBUG SMTP] START')
+
         msg = MIMEMultipart()
         msg['From']    = sender_email
         msg['To']      = receiver_email
         msg['Date']    = formatdate(localtime=True)
         msg['Subject'] = unicode('Nueva petición de datos recibida', 'utf-8').encode('utf-8')
 
+        loggin.info(msg)
+
         email_body = u'Nombre de usuario: ' + request_sender_name + unicode("\nPetición: ", 'utf-8') + request.params['data_request_description']
 
+        logging.info('email_body:')
+        logging.info(email_body)
+
         msg.attach(MIMEText(email_body.encode('utf-8')))
+
+        logging.info('final message:')
+        logging.info(msg)
 
         # send email
         try:
@@ -59,5 +69,7 @@ class FeedbackController(BaseController):
         except socket.error:
             logging.error('Error establishing SMTP connection to server: ' + smtp_address + ' port ' + str(smtp_port))
             raise
+
+        logging.info('[DEBUG SMTP] END')
 
         return p.toolkit.render('feedbackProv.html')
